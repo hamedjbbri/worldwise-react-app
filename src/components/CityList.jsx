@@ -1,15 +1,24 @@
-import styles from './CityList.module.css'
-
-function CityList() {
-  return (
-    <div>
-      <ul className={styles.cityList}>
-         List
-      </ul>
+import Spinner from "./Spinner";
+import styles from './CityList.module.css';
+import CityItem from "./CityItem";
+import PropTypes from 'prop-types'; // Import PropTypes
 
 
-    </div>
-  )
+
+function CityList({ cities , isLoading}) {
+ 
+  if(isLoading) return <Spinner />
+   
+  return <ul className={styles.cityList}> 
+    {cities.map((city) => (
+      <CityItem city={city} key={city.id} />
+     ))}
+   </ul> 
 }
 
-export default CityList
+CityList.propTypes = {
+  cities: PropTypes.array.isRequired, // Assuming cities is an array
+  isLoading: PropTypes.bool.isRequired, // Assuming isLoading is a boolean
+};
+
+export default CityList;
